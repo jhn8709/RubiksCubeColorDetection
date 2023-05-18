@@ -2,6 +2,14 @@
 import cv2 as cv
 import numpy as np
 
+def rescaleFrame(frame, scale=0.75):
+    # Images, Videos and Live Video
+    width = int(frame.shape[1] * scale)
+    height = int(frame.shape[0] * scale)
+
+    dimensions = (width, height)
+
+    return cv.resize(frame, dimensions, interpolation=cv.INTER_AREA)
 
 
 def colorDetectionHue(hue):
@@ -39,11 +47,11 @@ hue_list = []
 saturation_list = []
 
 while True:
-    img = cv.imread(img_list[i]) # load in image
+    isTrue, frame = capture.read()
     #print(type(img))
-    resized_img = rescaleFrame(img, scale=0.3) # change size of image
+    resized_f = rescaleFrame(frame, scale=0.3) # change size of image
     #cv.imshow(side_list[i], resized_img) # show BGR image (use this to set cols and rows list)
-    hsv = cv.cvtColor(resized_img, cv.COLOR_BGR2HSV) # convert BGR to HSV color space
+    hsv = cv.cvtColor(resized_f, cv.COLOR_BGR2HSV) # convert BGR to HSV color space
     #cv.imshow('HSV', hsv) # show HSV image
     for row in rows:
         for col in cols:
