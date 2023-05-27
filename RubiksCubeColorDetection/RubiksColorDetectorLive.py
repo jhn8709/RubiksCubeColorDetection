@@ -59,16 +59,16 @@ while True:
             saturation_list.append(hsv[row, col, 1])
     #print(hue_list)
     #print(saturation_list)
-    cv.waitKey(0)
+    cv.waitKey(0) # add code here to determine when next side should be detected
     #cv.destroyAllWindows()
 
 inc = 0
 for sides in side_list:
     for i in range(9):
-        if saturation_list[inc] < 70:
-            rubiks_sides[sides].append("white")
+        if saturation_list[inc] < 70: # white is the only color on the cube to have low saturation
+            rubiks_sides[sides].append("white") 
         else:
-            rubiks_sides[sides].append(colorDetectionHue(hue_list[inc]))
+            rubiks_sides[sides].append(colorDetectionHue(hue_list[inc])) # detect color by hue
         inc += 1
 
 for sides in side_list:    
